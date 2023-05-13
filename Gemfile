@@ -16,9 +16,9 @@ gem "pg", "~> 1.1"
 gem "devise"
 
 
-# Adding dotenv gem or storing secrets
-gem "dotenv-rails", groups: [:development, :test]
 
+#Adding cloudinary gem for image storage of watches
+gem "cloudinary"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
