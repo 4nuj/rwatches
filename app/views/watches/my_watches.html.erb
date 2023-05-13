@@ -1,0 +1,15 @@
+
+<ul>
+  <% @watches.each do |watch| %>
+    <li>
+      <strong><%= watch.brand %> <%= watch.model %></strong><br>
+      <%= watch.description %><br>
+      <%= number_to_currency(watch.price) %><br>
+      <%= watch.address %><br>
+      <%= link_to 'Edit', edit_watch_path(watch) %>
+      <%= button_to 'Delete', watch_path(watch), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'New Watch', new_watch_path %>

@@ -1,0 +1,9 @@
+<% @watches.each do |watch| %>
+  <h2><%= watch.brand %> <%= watch.model %></h2>
+  <p><%= watch.description %></p>
+  <p><strong>Price:</strong> <%= watch.price %></p>
+  <p><strong>Address:</strong> <%= watch.address %></p>
+  <p><%= link_to 'View', watch_path(watch) %></p>
+<% end %>
+
+<%= link_to 'List New Watch for Rental', new_watch_path %>
