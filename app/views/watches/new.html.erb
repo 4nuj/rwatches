@@ -38,8 +38,14 @@
     <%= form.text_area :address, class: 'form-control' %>
   </div>
 
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div>
+
   <%= form.submit "Create Watch", class: 'btn btn-primary' %>
 <% end %>
+
 
 
 

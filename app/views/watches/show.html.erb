@@ -2,3 +2,14 @@
   <p><%= @watch.description %></p>
   <p><strong>Price:</strong> <%= @watch.price %></p>
   <p><strong>Address:</strong> <%= @watch.address %></p>
+  <%= image_tag @watch.image if @watch.image.attached? %>
+
+
+
+<%= form_with(model: @rental, method: :post, local: true) do |form| %>
+<%= form.hidden_field :watch_id, value: @watch.id %>
+  <%= form.label :rental_date %>
+  <%= form.date_field :rental_start_date, class: "form-control", min: Date.today %>
+  <%= form.date_field :rental_end_date, class: "form-control", min: Date.tomorrow %>
+  <%= form.submit "Create Rental", class: 'btn btn-primary mt-3' %>
+<% end %>

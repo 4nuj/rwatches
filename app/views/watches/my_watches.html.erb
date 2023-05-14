@@ -6,7 +6,9 @@
       <%= watch.description %><br>
       <%= number_to_currency(watch.price) %><br>
       <%= watch.address %><br>
+      <%= image_tag watch.image if watch.image.attached? %>
       <%= link_to 'Edit', edit_watch_path(watch) %>
+
       <%= button_to 'Delete', watch_path(watch), method: :delete, data: { confirm: 'Are you sure?' } %>
     </li>
   <% end %>
