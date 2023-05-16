@@ -3,7 +3,7 @@
     <div class="col-md-4">
       <div class="card mb-3 shadow-lg ">
       <% if watch.image.attached? %>
-        <%= image_tag(watch.image.variant(resize: "300x300"), class: "card-img-top") %>
+        <%= image_tag(watch.image, class: "card-img-top") %>
       <% else %>
         <% random_images = [
             "https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F4e563822-ed89-11ec-b47a-cf598c451bbb.jpg?crop=1500%2C1000%2C0%2C0",

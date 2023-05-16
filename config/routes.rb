@@ -6,7 +6,5 @@ Rails.application.routes.draw do
 
 
 # rentals for renting watches. We are using type option in resources to specify the type of rental either letting or rental
-  resources :watches do
-    resources :rentals
-  end
+  resources :watches
 end
