@@ -5,6 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :watches, dependent: :destroy
-  has_many :rentals, through: :watches
-  has_many :lettings, class_name: "Rental", foreign_key: :renter_id
+  has_many :rentals
 end
