@@ -15,6 +15,12 @@ gem "pg", "~> 1.1"
 # Adding devise gem for user logins
 gem "devise"
 
+# Adding image processing gem
+gem 'image_processing'
+
+#Adding cloudinary gem for image storage of watches
+gem "cloudinary"
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 

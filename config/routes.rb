@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get '/my_watches', to: 'watches#my_watches'
+  post '/watches/:watch_id',  to: 'rentals#create', :as => 'create_rental'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+
+# rentals for renting watches. We are using type option in resources to specify the type of rental either letting or rental
+  resources :watches
 end

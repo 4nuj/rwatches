@@ -1,0 +1,35 @@
+<div class="row">
+  <% @watches.each_with_index do |watch,i| %>
+    <div class="col-md-4">
+      <div class="card mb-3 shadow-lg ">
+      <% if watch.image.attached? %>
+        <%= image_tag(watch.image, class: "card-img-top") %>
+      <% else %>
+        <% random_images = [
+            "https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F4e563822-ed89-11ec-b47a-cf598c451bbb.jpg?crop=1500%2C1000%2C0%2C0",
+            "https://watchreport.com/wp-content/uploads/2015/08/2B2828F000000578-3187232-image-a-2_1438899819020.jpg",
+            "https://4.bp.blogspot.com/-HJIQbUt7RlA/UzhYJGJyZ0I/AAAAAAABkaw/-jd3vLwgWl8/s1600/b+(2).jpg",
+            "https://www.rox.co.uk/media/catalog/product/cache/a5f777c044e0238c52c9d003d3247a3b/6/6/665.ox.9910.lr.0999b.jpg",
+            "https://mcdn.wallpapersafari.com/medium/46/96/lBr42Z.jpg",
+            "https://mcdn.wallpapersafari.com/medium/85/73/6HhYpj.jpg",
+            "https://mcdn.wallpapersafari.com/medium/67/96/TXVLOc.jpg",
+            "https://transform.octanecdn.com/crop/700x650/https://dynamix-cdn.s3.amazonaws.com/jacobandcocom/jacobandcocom_441167845.jpg"
+
+        ] %>
+        <%= image_tag(random_images[i], class: "card-img-top ") %>
+      <% end %>
+
+        <div class="card-body">
+          <h5 class="card-title"><%= watch.brand %> <%= watch.model %></h5>
+          <p class="card-text"><%= watch.description %></p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <%= link_to 'Rent', watch_path(watch), class: "btn btn-sm btn-outline-secondary" %>
+              </div>
+            <small class="text-muted"><%= number_to_currency(watch.price) %></small>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
