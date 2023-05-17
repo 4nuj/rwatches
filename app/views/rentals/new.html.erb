@@ -1,0 +1,36 @@
+
+
+<h1>New Rental</h1>
+
+
+  <h2><%= @watch.brand %> <%= @watch.model %></h2>
+  <p><%= @watch.description %></p>
+  <p><strong>Price:</strong> <%= @watch.price %></p>
+  <p><strong>Address:</strong> <%= @watch.address %></p>
+  <%= image_tag @watch.image if @watch.image.attached? %>
+
+
+
+<%= form_for @rental, url: watch_rentals_path(@watch) do |f| %>
+  <% if @rental.errors.any? %>
+    <div class="alert alert-danger">
+      <% @rental.errors.full_messages.each do |msg| %>
+        <div><%= msg %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :start_date %>
+    <%= f.date_field :start_date, class: "form-control", min: Date.today %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :end_date %>
+    <%= f.date_field :end_date, class: "form-control", min: Date.tomorrow %>
+  </div>
+
+  <%= f.hidden_field :watch_id, value: @watch.id %>
+
+  <%= f.submit "Create Rental", class: "btn btn-primary" %>
+<% end %>

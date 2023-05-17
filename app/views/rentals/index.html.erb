@@ -1,0 +1,67 @@
+
+<h1>Your Upcoming Rentals</h1>
+
+<% if @user_rentals.any? %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Watch</th>
+        <th>Picture</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user_rentals.each do |rental| %>
+        <tr>
+          <td><%= rental.watch.brand %></td>
+          <td><%= image_tag rental.watch.image if rental.watch.image.attached? %></td>
+          <td><%= rental.start_date %></td>
+          <td><%= rental.end_date %></td>
+         <td><%= "Price = #{((rental.end_date - rental.start_date) * rental.watch.price) if rental.end_date && rental.start_date}" %></td>
+         <td>
+     <%= button_to "Cancel Rental", rental_path(rental), method: :delete, data: { confirm: "Are you sure you want to delete this rental?" }, class: "btn btn-warning" %>
+    </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>You have no upcoming rentals.</p>
+<% end %>
+
+
+<br>
+<br>
+<br>
+<br>
+
+<h1>Your Previous Rentals</h1>
+
+<% if @user_historical_rentals.any? %>
+  <table class="table table-striped" >
+    <thead>
+      <tr>
+        <th>Watch</th>
+        <th>Picture</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user_historical_rentals.each do |rental| %>
+        <tr>
+          <td><%= rental.watch.brand %></td>
+          <td><%= image_tag rental.watch.image if rental.watch.image.attached? %></td>
+          <td><%= rental.start_date %></td>
+          <td><%= rental.end_date %></td>
+          <td><%= number_to_currency((rental.end_date - rental.start_date) * rental.watch.price) %></td>
+          <td> <%= link_to "Leave Review", new_rental_review_path(rental.id), class: "btn btn-primary" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+<p>You have no upcoming rentals.</p>
+<% end %>
