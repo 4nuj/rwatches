@@ -2,14 +2,18 @@ class RentalsController < ApplicationController
   before_action :set_rental, only: [:show, :edit, :update, :destroy]
 
   def index
-    @rentals = Rental.where(user: current_user)
+    @user_rentals = Rental.where(user_id: current_user.id)
+    @user_historical_rentals = current_user.rentals#.where("end_date < ?", Date.today)
   end
 
   def show
+    @rental = Rental.find(params[:id])
   end
 
   def new
     @rental = Rental.new
+    @watch = Watch.find(params[:watch_id])
+
   end
 
   def edit
@@ -17,9 +21,13 @@ class RentalsController < ApplicationController
 
   def create
     @rental = Rental.new(rental_params)
-    raise
+    @watch = Watch.find(params[:watch_id])
+    # link the current user as the booking user in rentals
+    @rental.user = current_user
+    # link the selected watch as the booked watch in rentals
+    @rental.watch = @watch
     if @rental.save
-      redirect_to @rental, notice: 'Rental was successfully created.'
+      redirect_to user_rentals_path(current_user), notice: 'Rental was successfully created.'
     else
       render :new
     end
@@ -35,7 +43,7 @@ class RentalsController < ApplicationController
 
   def destroy
     @rental.destroy
-    redirect_to rentals_url, notice: 'Rental was successfully destroyed.'
+    redirect_to user_rentals_path(current_user), notice: 'Rental was successfully cancelled.'
   end
 
   private
