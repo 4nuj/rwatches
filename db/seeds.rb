@@ -42,3 +42,4 @@ users = User.all
   description = Faker::Lorem.paragraph
 
   watch = user.watches.create!(brand: brand, model: model, price: price, address: address, description: description)
+end
