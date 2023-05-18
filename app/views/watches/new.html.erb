@@ -1,0 +1,65 @@
+<h1>New Watch</h1>
+
+<%= form_with(model: @watch, local: true) do |form| %>
+  <% if @watch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@watch.errors.count, "error") %> prohibited this watch from being saved:</h2>
+
+      <ul>
+        <% @watch.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :brand %>
+    <%= form.text_field :brand, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :model %>
+    <%= form.text_field :model, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_area :address, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div>
+
+  <%= form.submit "Create Watch", class: 'btn btn-primary' %>
+<% end %>
+
+
+
+
+<h2>My Listed Watches</h2>
+
+<ul>
+  <% @watches.each do |watch| %>
+    <li>
+      <strong><%= watch.brand %> <%= watch.model %></strong><br>
+      <%= watch.description %><br>
+      <%= number_to_currency(watch.price) %><br>
+      <%= watch.address %><br>
+      <%= link_to 'Edit', edit_watch_path(watch) %>
+      <%= button_to 'Delete', watch_path(watch), method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</ul>

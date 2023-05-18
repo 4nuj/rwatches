@@ -1,0 +1,32 @@
+<div class="row">
+  <% @watches.each_with_index do |watch,i| %>
+   <% average_rating = watch.average_rating || 0 %>
+    <div class="col-md-4">
+      <div class="card mb-3 shadow-lg ">
+
+
+        <div class="card-body">
+          <h5 class="card-title"><%= watch.brand %> <%= watch.model %></h5>
+          <p class="card-text"><%= watch.description %></p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <%= link_to 'Rent', new_watch_rental_path(watch), class: "btn btn-sm btn-outline-secondary" %>
+              </div>
+                 <div class="star-rating">
+                    <% (1..5).each do |i| %>
+                      <% if i <= average_rating %>
+                        <%= image_tag('https://icon-library.com/images/rating-star-icon/rating-star-icon-15.jpg', size: '20') %>
+                      <% else %>
+                        <%= image_tag('https://img.icons8.com/?size=512&id=104&format=png', size: '20') %>
+                      <% end %>
+                    <% end %>
+                  </div>
+              </div>
+
+            <small class="text-muted"><%= number_to_currency(watch.price) %></small>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

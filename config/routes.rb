@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get '/my_watches', to: 'watches#my_watches'
+  get 'user_rentals', to: 'rentals#index', as: :user_rentals
 
-  # Defines the root path route ("/")
-  # root "articles#index"
-end
+  resources :watches do
+    resources :rentals, only: [:new, :create]
+  end
+  resources :rentals, only: [:show, :destroy] do
+    resources :reviews, only: [:new, :create]
+    end
+  end
