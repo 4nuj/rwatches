@@ -1,3 +1,58 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
-<h1>test ignore this message</h1>
+<<<<<<< HEAD
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+ <body>
+  <div class="main">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <head> </head>
+
+    <section class="container">
+      <h1>Welcome to RWatches!</h1>
+      <h2>Renting high end brand watches couldn't be easier!</h2>
+      <p>At RWatches we provide only a world class service in the rental watch market
+      We carry out extensive checks on our rental watches making sure you can rent our classic timepieces
+      the easy way. Whether that is a Seiko, Omega, or the classic Rolex, you can be sure to find what you need.
+      </p>
+    </section>
+
+        <section class="image-container">
+        <img class="slides"src="watch3.jpg">
+        <img class="slides"src="watch4.jpg">
+        <img class="slides"src="watch5.jpg">
+        <img class="slides"src="watch6.jpg">
+        <img class="slides"src="watch7.jpg">
+        <img class="slides"src="watch8.jpg">
+
+        </section>
+
+  </div>
+
+
+</body>
+
+ <footer class="footer">
+      <a href="#"> <i class="fa fa-twitter"></i></a>
+      <a href="#"> <i class="fa fa-linkedin"></i></a>
+      <a href="#"> <i class="fa fa-pinterest"></i></a>
+      <a href="#"> <i class="fa fa-facebook-official"></i></a>
+      </footer>
+
+
+      <script>
+      var myIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("slides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  myIndex++
+  if (myIndex > x.length) {myIndex = 1}
+  x[myIndex-1].style.display = "block";
+  setTimeout(carousel, 3000)
+}
+      </script>
+</html>
