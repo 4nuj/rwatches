@@ -1,13 +1,13 @@
-<%# <div class="row"> %>
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-      <% @watches.each_with_index do |watch,i| %>
+      <% @watches.each_with_index do |watch, i| %>
         <% average_rating = watch.average_rating || 0 %>
         <div class="card-body shadow-lg p-3 mt-2">
           <h5 class="card-title"><%= watch.brand %> <%= watch.model %></h5>
-           <%= image_tag watch.image.variant(resize: "300x200") if watch.image.attached? %>
-          <p class="card-text"><%= watch.description %></p>
+          <% if watch.image.attached? %>
+            <%= image_tag watch.image, class: "card-image" %>
+          <% end %>
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
               <%= link_to 'Rent', new_watch_rental_path(watch), class: "btn btn-sm btn-outline-secondary" %>
