@@ -2,7 +2,14 @@ class WatchesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @watches = Watch.where.not(user: current_user)
+    @watches = Watch.all
+    @markers = @watches.geocoded.map do |watch|
+      {
+        lat: watch.latitude,
+        lng: watch.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: {watch: watch})
+      }
+    end
   end
 
 
