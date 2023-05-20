@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
-  get '/my_watches', to: 'watches#my_watches'
+  get '/my_watches', to: 'watches#my_watches', as: :my_watches
   get 'user_rentals', to: 'rentals#index', as: :user_rentals
 
   resources :watches do
