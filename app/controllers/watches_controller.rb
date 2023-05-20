@@ -1,3 +1,5 @@
+require 'rmagick'
+
 class WatchesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 

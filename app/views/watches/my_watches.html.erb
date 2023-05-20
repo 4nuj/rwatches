@@ -1,17 +1,20 @@
+<div class="col-md-6">
 
-<ul>
-  <% @watches.each do |watch| %>
-    <li>
-      <strong><%= watch.brand %> <%= watch.model %></strong><br>
-      <%= watch.description %><br>
-      <%= number_to_currency(watch.price) %><br>
-      <%= watch.address %><br>
-      <%= image_tag watch.image if watch.image.attached? %>
-      <%= link_to 'Edit', edit_watch_path(watch) %>
+      <ul>
+        <% @watches.each do |watch| %>
+          <li class="rental-card-body">
+            <strong><%= watch.brand %> <%= watch.model %></strong><br>
+            <%= watch.description %><br>
+            <%= number_to_currency(watch.price) %><br>
+            <%= watch.address %><br>
+            <%= image_tag watch.image if watch.image.attached? %>
+            <%= link_to 'Edit', edit_watch_path(watch) %>
 
-      <%= button_to 'Delete', watch_path(watch), method: :delete, data: { confirm: 'Are you sure?' } %>
-    </li>
-  <% end %>
-</ul>
+            <%= button_to 'Delete', watch_path(watch), method: :delete, data: { confirm: 'Are you sure?' } %>
+          </li>
+        <% end %>
+      </ul>
 
-<%= link_to 'New Watch', new_watch_path %>
+      <%= link_to 'New Watch', new_watch_path %>
+
+</div>
