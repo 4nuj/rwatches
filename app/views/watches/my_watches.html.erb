@@ -1,23 +1,58 @@
-<div class="container">
+<style>
+  .card {
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-image {
+    border-radius: 10px 10px 0 0;
+  }
+</style>
+
+
+
+<div class="container-fluid">
   <div class="row">
-    <% @watches.each do |watch| %>
-      <div class="col-md-3 mt-3 mb-3">
-        <div class="card">
-          <div class="card-body rental-card-body">
-            <strong><%= watch.brand %> <%= watch.model %></strong><br>
-            <%= watch.description %><br>
-            <%= number_to_currency(watch.price) %><br>
-            <%= watch.address %><br>
-            <% if watch.image.attached? %>
-              <div class="image-container">
-                <%= image_tag watch.image %>
+    <% @watches.each_slice(4) do |watch_group| %>
+      <div class="row mt-2">
+        <% watch_group.each do |watch| %>
+          <% average_rating = watch.average_rating || 0 %>
+          <div class="col-md-3">
+            <div class="card shadow-lg p-3">
+              <h5 class="card-title"><%= "#{watch.brand} #{watch.model}" %></h5>
+              <% if watch.image.attached? %>
+                <%= image_tag watch.image, class: "card-image img-fluid" %>
+              <% end %>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <%= link_to 'Edit', edit_watch_path(watch), class: "btn btn-sm btn-outline-secondary mt-2 " %>
+                </div>
+                <div class="star-rating">
+                  <% (1..5).each do |i| %>
+                    <% if i <= average_rating %>
+                      <%= image_tag('https://icon-library.com/images/rating-star-icon/rating-star-icon-15.jpg', size: '20') %>
+                    <% else %>
+                      <%= image_tag('https://img.icons8.com/?size=512&id=104&format=png', size: '20') %>
+                    <% end %>
+                  <% end %>
+                </div>
+             <%= button_to 'Delete', watch_path(watch), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger mt-2', form: { class: 'd-inline' } %>
+
               </div>
-            <% end %>
-            <%= link_to 'Edit', edit_watch_path(watch) %>
-            <%= button_to 'Delete', watch_path(watch), method: :delete, data: { confirm: 'Are you sure?' } %>
+              <small class="text-muted"><%= number_to_currency(watch.price) %></small>
+            </div>
           </div>
-        </div>
+            <% end %>
+      <%= link_to 'List New Watch', new_watch_path, class: 'btn btn-primary mt-3 btn-sm' %>
+
       </div>
     <% end %>
   </div>
+
+
 </div>
