@@ -28,18 +28,10 @@
 
 # # Output a message indicating the number of watches created
 # puts "Created #{Watch.count} watches"
+Review.destroy_all
 
+Rental.destroy_all
 
-users = User.all
+Watch.destroy_all
 
-25.times do |n|
-  user = users.sample
-
-  brand = Faker::Company.name
-  model = Faker::Device.model_name
-  price = Faker::Commerce.price(range: 100..1000)
-  address = Faker::Address.full_address
-  description = Faker::Lorem.paragraph
-
-  watch = user.watches.create!(brand: brand, model: model, price: price, address: address, description: description)
-end
+User.destroy_all

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Watch Rental Site</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+      color: #fff;
+      position: relative;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    #fullscreen-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      transition: background-image 1s ease-in-out;
+    }
+
+    #browse-button-container {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      text-align: center;
+      z-index: 999;
+    }
+
+    #browse-button {
+      padding: 15px 30px;
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+      background-color: #333;
+      color: #fff;
+      border-radius: 50px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #browse-button:hover {
+      background-color: #222;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="fullscreen-animation"></div>
+
+  <div id="browse-button-container">
+    <a id="browse-button" href="/watches" class="btn btn-dark">Browse Watches</a>
+  </div>
+
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // Set initial image
+    var currentImageIndex = 0;
+    var imageUrls = [
+      "<%= asset_path('landing_animation_assets/1.png') %>",
+      "<%= asset_path('landing_animation_assets/2.png') %>",
+      "<%= asset_path('landing_animation_assets/3.png') %>",
+      "<%= asset_path('landing_animation_assets/4.png') %>",
+      "<%= asset_path('landing_animation_assets/5.png') %>",
+      "<%= asset_path('landing_animation_assets/6.png') %>",
+      "<%= asset_path('landing_animation_assets/7.png') %>",
+      "<%= asset_path('landing_animation_assets/8.png') %>",
+      "<%= asset_path('landing_animation_assets/9.png') %>",
+      "<%= asset_path('landing_animation_assets/10.png') %>",
+      "<%= asset_path('landing_animation_assets/11.png') %>"
+    ];
+
+    // Set initial image
+    $("#fullscreen-animation").css("background-image", "url(" + imageUrls[currentImageIndex] + ")");
+
+    // Function to change the image
+    function changeImage() {
+      currentImageIndex++;
+      if (currentImageIndex >= imageUrls.length) {
+        currentImageIndex = 0; // Restart the loop
+      }
+      $("#fullscreen-animation").css("background-image", "url(" + imageUrls[currentImageIndex] + ")");
+    }
+
+    // Start the animation
+    var animationInterval = setInterval(changeImage, 1800); // Change image every 1.8 seconds
+  </script>
+</body>
+</html>
