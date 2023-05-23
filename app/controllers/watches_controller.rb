@@ -5,6 +5,10 @@ class WatchesController < ApplicationController
 
   def index
     @watches = Watch.all
+    if params[:query].present?
+      sql_subquery = "brand ILIKE :query OR model ILIKE :query"
+      @watches = @watches.where(sql_subquery, query: "%#{params[:query]}%")
+    end
     @markers = @watches.geocoded.map do |watch|
       {
         lat: watch.latitude,
