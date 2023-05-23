@@ -35,7 +35,10 @@
             </td>
             <td><%= rental.start_date %></td>
             <td><%= rental.end_date %></td>
-            <td><%= number_to_currency((rental.end_date - rental.start_date) * rental.watch.price) %></td>
+            <td>
+            <% if rental.end_date && rental.start_date %>
+            <%= number_to_currency((rental.end_date - rental.start_date) * rental.watch.price) %></td>
+            <% end %>
             <td>
               <%= button_to "Cancel Rental", rental_path(rental), method: :delete, data: { confirm: "Are you sure you want to delete this rental?" }, class: "btn btn-warning" %>
             </td>
@@ -82,7 +85,9 @@
             </td>
             <td><%= rental.start_date %></td>
             <td><%= rental.end_date %></td>
-            <td><%= number_to_currency((rental.end_date - rental.start_date) * rental.watch.price) %></td>
+           <% if rental.end_date && rental.start_date %>
+            <%= number_to_currency((rental.end_date - rental.start_date) * rental.watch.price) %></td>
+            <% end %>
             <td><%= link_to "Leave Review", new_rental_review_path(rental.id), class: "btn btn-primary" %></td>
           </tr>
         <% end %>
