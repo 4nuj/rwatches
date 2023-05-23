@@ -1,36 +1,40 @@
-<style>
-  .card {
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-  }
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Watch Cards and Map</title>
+  <style>
+    .card {
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
 
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
 
-  .card-image {
-    border-radius: 10px 10px 0 0;
-  }
+    .card-image {
+      border-radius: 10px 10px 0 0;
+    }
 
-  #map-section {
-    /* Remove the display: none; style */
-  }
-</style>
-
-
-<!-- Include jQuery library -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    #map-section {
+      height: calc(100vh - 100px); /* Adjust the value based on your needs */
+      position: sticky;
+      top: 100px; /* Adjust the value based on your needs */
+      border-radius: 10px;
+    }
+  </style>
+  <!-- Include jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
 
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-sm-8 my-3">
+      <!-- Search form -->
       <%= form_with url: watches_path, method: :get, class: "d-flex" do %>
-        <%= text_field_tag :query,
-              params[:query],
-              class: "form-control",
-              placeholder: "Search for Watches"
-          %>
+        <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Search for Watches" %>
         <%= submit_tag "Search", name: "", class: "btn btn-dark" %>
       <% end %>
     </div>
@@ -38,51 +42,49 @@
 
   <div class="row">
     <div class="col-md-6">
-      <% @watches.each do |watch| %>
+      <!-- Watch Cards -->
+      <% @watches.each.with_index do |watch, index| %>
         <% average_rating = watch.average_rating || 0 %>
-        <div class="card shadow-lg p-3 mb-3">
-          <h5 class="card-title"><%= "#{watch.brand} #{watch.model}" %></h5>
-          <% if watch.image.attached? %>
-            <%= image_tag watch.image, class: "card-image img-fluid" %>
-          <% end %>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <%= link_to 'Rent', new_watch_rental_path(watch), class: "btn btn-sm btn-outline-secondary mt-2 " %>
-            </div>
-            <div class="star-rating">
-              <% (1..5).each do |i| %>
-                <% if i <= average_rating %>
-                  <%= image_tag('https://icon-library.com/images/rating-star-icon/rating-star-icon-15.jpg', size: '20') %>
-                <% else %>
-                  <%= image_tag('https://img.icons8.com/?size=512&id=104&format=png', size: '20') %>
+        <% if index.even? %>
+          <div class="row">
+        <% end %>
+        <div class="col-md-6">
+          <div class="card shadow-lg p-3 mb-3">
+            <h5 class="card-title"><%= "#{watch.brand} #{watch.model}" %></h5>
+            <% if watch.image.attached? %>
+              <%= image_tag watch.image, class: "card-image img-fluid" %>
+            <% end %>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <%= link_to 'Rent', new_watch_rental_path(watch), class: "btn btn-sm btn-outline-secondary mt-2 " %>
+              </div>
+              <div class="star-rating">
+                <% (1..5).each do |i| %>
+                  <% if i <= average_rating %>
+                    <%= image_tag('https://icon-library.com/images/rating-star-icon/rating-star-icon-15.jpg', size: '20') %>
+                  <% else %>
+                    <%= image_tag('https://img.icons8.com/?size=512&id=104&format=png', size: '20') %>
+                  <% end %>
                 <% end %>
-              <% end %>
+              </div>
             </div>
+            <small class="text-muted"><%= number_to_currency(watch.price) %></small>
           </div>
-          <small class="text-muted"><%= number_to_currency(watch.price) %></small>
         </div>
+        <% if index.odd? || index == @watches.size - 1 %>
+          </div>
+        <% end %>
       <% end %>
     </div>
 
-
-
-  <div style="width: 100%; height: 600px;"
-data-controller="map"
-data-map-markers-value="<%= @markers.to_json %>"
-data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-</div>
-
-
-    <div class="col-md-6 mt-2">
-      <div id="map-section" class="map-section col-md-12"
-        data-controller="map"
-        data-map-markers-value="<%= @markers.to_json %>"
+    <div class="col-md-6">
+      <!-- Map Section -->
+      <div id="map-section" data-controller="map" data-map-markers-value="<%= @markers.to_json %>"
         data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
       </div>
     </div>
   </div>
 </div>
-
 
 <script>
   $(document).ready(function() {
@@ -94,3 +96,6 @@ data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
     $mapSection.data("map-api-key-value", "<%= ENV['MAPBOX_API_KEY'] %>");
   });
 </script>
+
+</body>
+</html>

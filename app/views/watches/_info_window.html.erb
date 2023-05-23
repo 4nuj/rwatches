@@ -1,6 +1,7 @@
-<h2><%= watch.brand %></h2>
-<p><%= watch.model %></p>
-<p><%= watch.price %></p>
-<% if watch.image.attached? %>
-  <%= image_tag watch.image, class: "card-image img-fluid" %>
-<% end %>
+  <div class="card-body">
+   <% if watch.image.attached? %>
+    <%= image_tag watch.image, class: "card-image img-fluid rounded-circle" %>
+  <% end %>
+  <h2><%= watch.brand %> - <%= watch.model %></h2>
+  <h3>£  <%= watch.price %></h3>
+  </div>
