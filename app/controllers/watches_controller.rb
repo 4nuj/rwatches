@@ -13,7 +13,8 @@ class WatchesController < ApplicationController
       {
         lat: watch.latitude,
         lng: watch.longitude,
-        info_window_html: render_to_string(partial: "info_window", locals: {watch: watch})
+        info_window_html: render_to_string(partial: "info_window", locals: {watch: watch}),
+        marker_html: render_to_string(partial: "marker", locals: {watch: watch})
       }
     end
   end
