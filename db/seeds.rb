@@ -27,11 +27,3 @@
 # puts "Created #{Watch.count} watches"
 
 # # Output a message indicating the number of watches created
-# puts "Created #{Watch.count} watches"
-Review.destroy_all
-
-Rental.destroy_all
-
-Watch.destroy_all
-
-User.destroy_all
