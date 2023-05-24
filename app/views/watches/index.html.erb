@@ -32,13 +32,26 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-sm-8 my-3">
-      <!-- Search form -->
-      <%= form_with url: watches_path, method: :get, class: "d-flex" do %>
-        <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Search for Watches" %>
-        <%= submit_tag "Search", name: "", class: "btn btn-dark" %>
-      <% end %>
+      <div class="d-flex flex-wrap">
+        <!-- Search form -->
+        <div class="mr-3 mb-3">
+          <%= form_with url: watches_path, method: :get, class: "d-flex" do %>
+            <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Search for Watches" %>
+            <%= submit_tag "Search", name: "", class: "btn btn-dark ml-2" %>
+          <% end %>
+        </div>
+
+        <!-- Sort form -->
+        <div class="mb-3">
+          <%= form_with url: watches_path, method: :get, class: "d-flex" do %>
+            <%= select_tag(:sort_by, options_for_select({ "Price (Low to High)" => "price_asc", "Price (High to Low)" => "price_desc", "Reviews (Highest First)" => "reviews_desc", "Reviews (Lowest First)" => "reviews_asc" }, params[:sort_by]), class: "form-control") %>
+            <%= submit_tag("Sort", class: "btn btn-dark ml-2") %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
+
 
   <div class="row">
     <div class="col-md-6">
@@ -79,8 +92,10 @@
 
     <div class="col-md-6">
       <!-- Map Section -->
-      <div id="map-section" data-controller="map" data-map-markers-value="<%= @markers.to_json %>"
-        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+      <div id="map-section"
+           data-controller="map"
+           data-map-markers-value="<%= @markers.to_json %>"
+           data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
       </div>
     </div>
   </div>
