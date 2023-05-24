@@ -11,6 +11,7 @@ gem "sprockets-rails"
 
 gem "geocoder"
 
+
 gem 'faker'
 
 gem "pg_search"
