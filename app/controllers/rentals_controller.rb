@@ -2,7 +2,8 @@ class RentalsController < ApplicationController
   before_action :set_rental, only: [:show, :edit, :update, :destroy]
 
   def index
-    @user_rentals = Rental.where(user_id: current_user.id)
+    @user_rentals = current_user.rentals.where("end_date > ?", Date.yesterday)
+    # @user_rentals = Rental.where(user_id: current_user.id)
     @user_historical_rentals = current_user.rentals.where("end_date < ?", Date.today)
 
   end

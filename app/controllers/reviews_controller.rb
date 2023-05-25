@@ -10,7 +10,7 @@ class ReviewsController < ApplicationController
 
     @review = @rental.build_review(review_params)
     if @review.save
-      redirect_to rental_path(@rental), notice: "Review was successfully created."
+      redirect_to user_rentals_path, notice: "Review was successfully created."
     else
       render :new
     end
