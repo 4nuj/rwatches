@@ -4,8 +4,11 @@ class WatchesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @watches = Watch.all
-
+    if current_user.nil?
+      @watches = Watch.all
+    else
+      @watches = Watch.where.not(user_id: current_user.id)
+    end
     if params[:query].present?
       sql_subquery = "brand ILIKE :query OR model ILIKE :query"
       @watches = @watches.where(sql_subquery, query: "%#{params[:query]}%")

@@ -3,8 +3,8 @@ class RentalsController < ApplicationController
 
   def index
     @user_rentals = Rental.where(user_id: current_user.id)
-#     @user_historical_rentals = current_user.rentals.where("end_date < ?", Date.today)
-    @user_historical_rentals = Rental.where(user_id: current_user.id)
+    @user_historical_rentals = current_user.rentals.where("end_date < ?", Date.today)
+
   end
 
   def show
@@ -14,6 +14,7 @@ class RentalsController < ApplicationController
   def new
     @rental = Rental.new
     @watch = Watch.find(params[:watch_id])
+    @reviews = @watch.reviews
 
   end
 

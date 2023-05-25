@@ -43,8 +43,8 @@
         <div class="card-body">
           <h2><%= @watch.brand %> <%= @watch.model %></h2>
           <p><%= @watch.description %></p>
-          <div class="address-wrapper">
-            <p><strong>Price:</strong> <%= @watch.price %></p>
+          <div class="address-wrapper d-flex justify-content-between">
+            <p><strong>Price:</strong> <%= @watch.price%> £</p>
             <p class="ml-auto text-right">
               <i class="fas fa-map-marker-alt address-icon"></i>
               <%= @watch.address %>
@@ -78,27 +78,31 @@
       </div>
     </div>
 
-    <div class="col-md-4">
-      <div class="card">
+    <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <!-- Rental reviews card -->
+              <h2>Reviews</h2>
 
-
-        <div class="card-body">
-            <h2> Reviews </h2>
-            <div class="review-box">
-            </div>
-              <p>Rating</p>
-                    <div class="d-flex justify-content-center align-items-center">
-                      <div class="btn-group, justify-content-center">
-                        <div class="star-rating">
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                      </div>
+                <% @reviews.each do |review| %>
+                  <div class="review-item mt-3 mb-5">
+                    <div class="review-content d-flex justify-content-start">
+                      <p><%= review.content %></p>
+                    </div>
+                    <div class="star-rating">
+                      <% (1..5).each do |i| %>
+                        <% if i <= review.rating %>
+                          <%= image_tag('https://icon-library.com/images/rating-star-icon/rating-star-icon-15.jpg', size: '20') %>
+                        <% else %>
+                          <%= image_tag('https://img.icons8.com/?size=512&id=104&format=png', size: '20') %>
+                        <% end %>
+                      <% end %>
+                    </div>
                   </div>
+                <% end %>
+
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
   </div>
 </div>
