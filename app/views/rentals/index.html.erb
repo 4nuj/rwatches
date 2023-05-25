@@ -60,40 +60,43 @@
 <h1>Your Previous Rentals</h1>
 
 <% if @user_historical_rentals.any? %>
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Watch</th>
+        <th>Model</th>
+        <th>Picture</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user_historical_rentals.each do |rental| %>
         <tr>
-          <th>Watch</th>
-          <th>Model</th>
-          <th>Picture</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Price</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @user_historical_rentals.each do |rental| %>
-          <tr>
-            <td><%= rental.watch.brand %></td>
-            <td><%= rental.watch.model %></td>
-            <td>
-              <% if rental.watch.image.attached? %>
-                <%= image_tag rental.watch.image, class: "watch-image" %>
-              <% end %>
-            </td>
-            <td><%= rental.start_date %></td>
-            <td><%= rental.end_date %></td>
-           <% if rental.end_date && rental.start_date %>
-            <%= number_to_currency((rental.end_date - rental.start_date) * rental.watch.price) %></td>
+          <td><%= rental.watch.brand %></td>
+          <td><%= rental.watch.model %></td>
+          <td>
+            <% if rental.watch.image.attached? %>
+              <%= image_tag rental.watch.image, class: "watch-image" %>
             <% end %>
-            <td><%= link_to "Leave Review", new_rental_review_path(rental.id), class: "btn btn-primary" %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+          </td>
+          <td><%= rental.start_date %></td>
+          <td><%= rental.end_date %></td>
+          <td>
+            <% if rental.end_date && rental.start_date %>
+              <%= number_to_currency((rental.end_date - rental.start_date) * rental.watch.price) %>
+            <% end %>
+          </td>
+          <td><%= link_to "Leave Review", new_rental_review_path(rental.id), class: "btn btn-primary" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
 <% else %>
   <p>You have no previous rentals.</p>
 <% end %>
