@@ -16,7 +16,7 @@
 
 
  <div class="container mt-2 d-flex justify-content-center">
-     <%= link_to 'List New Watch', new_watch_path, class: 'btn btn-dark btn-lg' %>
+     <%= link_to 'List New Watch', new_watch_path, class: 'btn btn-dark btn-lg mt-3 mb-3' %>
     </div>
 <div class="container-fluid">
   <div class="row">
@@ -26,7 +26,12 @@
           <% average_rating = watch.average_rating || 0 %>
           <div class="col-md-3">
             <div class="card shadow-lg p-3">
-              <h5 class="card-title"><%= "#{watch.brand} #{watch.model}" %></h5>
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="card-title mb-0"><%= "#{watch.brand} #{watch.model}" %></h5>
+                  <small class="text-muted"><%= number_to_currency(watch.price) %></small>
+                </div>
+              </div>
               <% if watch.image.attached? %>
                 <%= image_tag watch.image, class: "card-image img-fluid" %>
               <% end %>
@@ -43,10 +48,10 @@
                     <% end %>
                   <% end %>
                 </div>
-             <%= button_to 'Delete', watch_path(watch), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-danger', form: { class: 'd-inline' } %>
+             <%= button_to 'Delete', watch_path(watch), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger mt-2', form: { class: 'd-inline' } %>
 
               </div>
-              <small class="text-muted"><%= number_to_currency(watch.price) %></small>
+
             </div>
           </div>
             <% end %>
