@@ -1,65 +1,120 @@
-<h1>New Watch</h1>
 
-<%= form_with(model: @watch, local: true) do |form| %>
-  <% if @watch.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@watch.errors.count, "error") %> prohibited this watch from being saved:</h2>
+<body>
+  <h1>New Watch</h1>
+  <div class="card">
+      <div class="card-body">
+          <div class="new-watches">
+              <%= form_with(model: @watch, local: true) do |form| %>
+                <% if @watch.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= pluralize(@watch.errors.count, "error") %> prohibited this watch from being saved:</h2>
 
-      <ul>
-        <% @watch.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+                    <ul>
+                      <% @watch.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+
+                <div class="field">
+                  <%= form.label :brand %>
+                  <%= form.text_field :brand, class: 'form-control' %>
+                </div>
+
+                <div class="field">
+                  <%= form.label :model %>
+                  <%= form.text_field :model, class: 'form-control' %>
+                </div>
+
+                <div class="field">
+                  <%= form.label :description %>
+                  <%= form.text_area :description, class: 'form-control' %>
+                </div>
+
+                <div class="field">
+                  <%= form.label :price %>
+                  <%= form.number_field :price, class: 'form-control' %>
+                </div>
+
+                <div class="field">
+                  <%= form.label :address %>
+                  <%= form.text_area :address, class: 'form-control' %>
+                </div>
+
+                <div class="image-field">
+                  <%= form.label :image %>
+                  <%= form.file_field :image %>
+                </div>
+
+                <%= form.submit "Create Watch", class: 'btn btn-primary' %>
+              <% end %>
+
+          </div>
+       </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :brand %>
-    <%= form.text_field :brand, class: 'form-control' %>
+
+    <h2>My Listed Watches</h2>
+
+            <ul>
+              <% @watches.each do |watch| %>
+                <li class='new-list-watches'>
+                  <strong><%= watch.brand %> <%= watch.model %></strong><br>
+                  <%= watch.description %><br>
+                  <%= number_to_currency(watch.price) %><br>
+                  <%= watch.address %><br>
+                  <%= link_to 'Edit', edit_watch_path(watch), class:'edit-button' %>
+                  <%= button_to 'Delete', watch_path(watch), method: :delete, data: { confirm: 'Are you sure?' }, class:'delete'%>
+                </li>
+              <% end %>
+            </ul>
+
+          </div>
+        </div>
   </div>
 
-  <div class="field">
-    <%= form.label :model %>
-    <%= form.text_field :model, class: 'form-control' %>
-  </div>
+    <style>
+    .new-watches {
+       padding: 30px;
+    }
+    .card {
+      padding: 20px;
+    }
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description, class: 'form-control' %>
-  </div>
+    .image-field {
+      margin-top: 20px;
+      margin-bottom: 20px:
+    }
 
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.number_field :price, class: 'form-control' %>
-  </div>
+    .btn-primary {
+      margin-top: 20px;
+    }
 
-  <div class="field">
-    <%= form.label :address %>
-    <%= form.text_area :address, class: 'form-control' %>
-  </div>
+    .edit-button {
+      width: 100px;
+      height: 29px;
+      /* background-color: blue;
+      color: white; */
+      margin-bottom: 25px;
+      border-radius: 2px;
+    }
 
-  <div class="field">
-    <%= form.label :image %>
-    <%= form.file_field :image %>
-  </div>
+    .delete {
+      background-color: black;
+      color: white;
+    }
 
-  <%= form.submit "Create Watch", class: 'btn btn-primary' %>
-<% end %>
+    .new-list-watches {
+      padding: 10px;
+      border-width: 5px;
+      border-color: black;
+    }
 
+    /* .delete hover {
+      background-color: red;
+      color: white;
+    } */
+    </style>
 
-
-
-<h2>My Listed Watches</h2>
-
-<ul>
-  <% @watches.each do |watch| %>
-    <li>
-      <strong><%= watch.brand %> <%= watch.model %></strong><br>
-      <%= watch.description %><br>
-      <%= number_to_currency(watch.price) %><br>
-      <%= watch.address %><br>
-      <%= link_to 'Edit', edit_watch_path(watch) %>
-      <%= button_to 'Delete', watch_path(watch), method: :delete, data: { confirm: 'Are you sure?' } %>
-    </li>
-  <% end %>
-</ul>
+</body>
