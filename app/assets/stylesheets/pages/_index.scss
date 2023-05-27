@@ -1,6 +1,8 @@
 // Import page-specific CSS files here.
 @import "home";
 
+@import "watches";
+
 .rental-card-body {
   margin-top: auto 0px;
   padding: 30px;
@@ -17,4 +19,34 @@
 
 .forgot-password {
   padding: 50px;
+}
+
+.custom-bg {
+  background-color: #403D39;
+}
+
+.p-3{
+ color:white;
+}
+
+// For user rentals
+
+h1, h2, h3, h4, h5, th, p {
+  color: white;
+}
+
+.td-text {
+  color: white !important;
+}
+
+.card {
+  background-color: #403D39;
+}
+
+label{
+  color: white !important;
+}
+
+input.btn  {
+  color: white !important;
 }

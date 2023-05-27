@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Watch Cards and Map</title>
+  <link rel="stylesheet" href="application.scss">
   <style>
     .card {
       border-radius: 10px;
@@ -23,6 +24,10 @@
       top: 100px; /* Adjust the value based on your needs */
       border-radius: 10px;
     }
+
+    .form-control{
+      margin-left: 20px;
+    }
   </style>
   <!-- Include jQuery library -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -33,7 +38,7 @@
   <%# <div class="row justify-content-center"> %>
     <%# <div class="col-sm-8 my-3"> %>
     <div class="container mt-3">
-      <div class="d-flex flex-wrap">
+      <div class="d-flex flex-wrap justify-content-center">
         <!-- Search form -->
         <div class="mr-3 mb-3">
           <%= form_with url: watches_path, method: :get, class: "d-flex" do %>
@@ -62,7 +67,7 @@
         <% if index.even? %>
           <div class="row">
         <% end %>
-        <div class="col-md-6">
+        <div class="col-md-6 custom-bg">
           <div class="card shadow-lg p-3 mb-3">
             <h5 class="card-title"><%= "#{watch.brand} #{watch.model}" %></h5>
             <% if watch.image.attached? %>
