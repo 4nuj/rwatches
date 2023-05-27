@@ -59,6 +59,7 @@
 
 <h1>Your Previous Rentals</h1>
 
+
 <% if @user_historical_rentals.any? %>
 <div class="table-responsive">
   <table class="table table-striped">
@@ -90,7 +91,13 @@
               <%= number_to_currency((rental.end_date - rental.start_date) * rental.watch.price) %>
             <% end %>
           </td>
-          <td><%= link_to "Leave Review", new_rental_review_path(rental.id), class: "btn btn-primary" %></td>
+          <td>
+            <% if rental.review.present? %>
+              <p class="text-start">You reviewed <%= "#{'★' * rental.review.rating}#{'☆' * (5 - rental.review.rating)}" %></p>
+            <% else %>
+              <%= link_to "Leave Review", new_rental_review_path(rental.id), class: "btn btn-primary" %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
