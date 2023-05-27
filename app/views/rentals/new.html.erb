@@ -43,37 +43,46 @@
         <div class="card-body">
           <h2><%= @watch.brand %> <%= @watch.model %></h2>
           <p><%= @watch.description %></p>
-          <div class="address-wrapper d-flex justify-content-between">
-            <p><strong>Price:</strong> <%= @watch.price%> £</p>
-            <p class="ml-auto text-right">
-              <i class="fas fa-map-marker-alt address-icon"></i>
-              <%= @watch.address %>
-            </p>
-          </div>
-          <%= image_tag @watch.image, class: "watch-image" if @watch.image.attached? %>
-          <%= form_for @rental, url: watch_rentals_path(@watch) do |f| %>
-            <% if @rental.errors.any? %>
-              <div class="alert alert-danger">
-                <% @rental.errors.full_messages.each do |msg| %>
-                  <div><%= msg %></div>
-                <% end %>
+          <div data-controller="price-calculation">
+            <div class="address-wrapper d-flex justify-content-between">
+
+              <p><strong>Price:</strong> <div data-price-calculation-target="cost"><%= @watch.price%></div>£</p>
+              <p class="ml-auto text-right">
+                <i class="fas fa-map-marker-alt address-icon"></i>
+                <%= @watch.address %>
+              </p>
+            </div>
+            <%= image_tag @watch.image, class: "watch-image" if @watch.image.attached? %>
+
+            <%= form_for @rental, url: watch_rentals_path(@watch) do |f| %>
+              <% if @rental.errors.any? %>
+                <div class="alert alert-danger">
+                  <% @rental.errors.full_messages.each do |msg| %>
+                    <div><%= msg %></div>
+                  <% end %>
+                </div>
+              <% end %>
+
+              <div class="form-group">
+                <%= f.label :start_date %>
+                  <%= f.date_field :start_date, class: "form-control", min: Date.today, data: {price_calculation_target: "start"}  %>
               </div>
+
+              <div class="form-group">
+                <%= f.label :end_date %>
+                  <%= f.date_field :end_date, class: "form-control", min: Date.tomorrow, data: {price_calculation_target: "end",  action: "input->price-calculation#calc"} %>
+              </div>
+
+              <%= f.hidden_field :watch_id, value: @watch.id %>
+
+              <p></p>
+
+              <div class="form-group d-flex">
+                <%= f.label :total_price %> <p data-price-calculation-target="price"> </p>
+              </div>
+              <%= f.submit "Create Rental", class: "btn btn-primary mt-3" %>
             <% end %>
-
-            <div class="form-group">
-              <%= f.label :start_date %>
-              <%= f.date_field :start_date, class: "form-control", min: Date.today %>
-            </div>
-
-            <div class="form-group">
-              <%= f.label :end_date %>
-              <%= f.date_field :end_date, class: "form-control", min: Date.tomorrow %>
-            </div>
-
-            <%= f.hidden_field :watch_id, value: @watch.id %>
-
-            <%= f.submit "Create Rental", class: "btn btn-primary mt-3" %>
-          <% end %>
+          </div>
         </div>
       </div>
     </div>
