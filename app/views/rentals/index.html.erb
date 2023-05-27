@@ -88,7 +88,8 @@
           <td><%= rental.end_date %></td>
           <td>
             <% if rental.end_date && rental.start_date %>
-              <%= number_to_currency((rental.end_date - rental.start_date) * rental.watch.price) %>
+                <% duration = (rental.end_date - rental.start_date).to_i + 1 %>
+                <%= number_to_currency(duration * rental.watch.price) %>
             <% end %>
           </td>
           <td>
