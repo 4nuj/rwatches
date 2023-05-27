@@ -20,9 +20,9 @@ class WatchesController < ApplicationController
     when "price_desc"
       @watches = @watches.order(price: :desc)
     when "reviews_desc"
-      @watches = @watches.order(reviews: :desc)
+      @watches = Watch.joins(:reviews).group("watches.id").order("AVG(reviews.rating) DESC")
     when "reviews_asc"
-      @watches = @watches.order(reviews: :asc)
+      @watches = Watch.joins(:reviews).group("watches.id").order("AVG(reviews.rating) ASC")
     end
 
     @markers = @watches.geocoded.map do |watch|
