@@ -37,7 +37,8 @@
             <td><%= rental.end_date %></td>
             <td>
             <% if rental.end_date && rental.start_date %>
-            <%= number_to_currency((rental.end_date - rental.start_date) * rental.watch.price) %></td>
+                <% duration = (rental.end_date - rental.start_date).to_i + 1 %>
+                <%= number_to_currency(duration * rental.watch.price) %>
             <% end %>
             <td>
               <%= button_to "Cancel Rental", rental_path(rental), method: :delete, data: { confirm: "Are you sure you want to delete this rental?" }, class: "btn btn-warning" %>
